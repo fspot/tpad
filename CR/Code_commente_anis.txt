@@ -1,0 +1,66 @@
+
+% Fonction de calcul de l'optimum pour la requête du responsable des stocks 
+% On ajoute une nouvelle contrainte et on va tracer un graphe pour trouver un point d'infléxion
+function [ x,y ] = CalcX3( Mf, Pf )
+
+% declaration des variables
+x=zeros(100,1);
+y=zeros(1,100);
+
+% Déclaration de la fonction associée à ce responsable (A=5,B=5,C=6,etc.)
+f3=[ 5 5 6 8 5 4]; 
+
+
+% On va échelonner le bénéfice de 1 à 100 %  et l'ajouter comme terme d'inégalité dans Pf
+for i=1:100
+    Pf(1,11)=((10000/100)*i)*(-1);
+    x(i,1)=Pf(1,11);
+    X=linprog(f3,Mf,Pf,[],[],zeros(6,1))
+    y(1,i)=f3*X;
+end
+
+% On doit inverser le bénéfice
+x=-x;
+
+% et on affiche tout ça
+plot(x,y,'g-*')
+end
+
+
+
+
+
+% Fonction de calcul de l'optimum pour la requête du responsable commercial
+% On ajoute une nouvelle contrainte sur le benefice et on va tracer un graphe pour trouver un point d'infléxion ( doublement car valeur absolue)
+function [ ] = CalcX4( f, Mf, Pf )
+
+
+% declaration des variables
+x=zeros(100,1);
+y1=zeros(1,100);
+y2=zeros(1,100);
+
+
+% On divise ça en 100 points
+for i=1:100
+
+	% On cacul un ecart dans un sens
+    Pf(1,11)=(1)*(i);
+    Pf(1,12)=-Pf(1,11);
+    x(i,1)=Pf(1,11);
+    X1=linprog(f,Mf,Pf,[],[],zeros(12,1));
+    
+    
+    %Puis dans l'autre
+    Pf(1,11)=-Pf(1,11);
+    Pf(1,12)=-Pf(1,12);
+    X2=linprog(f,Mf,Pf,[],[],zeros(12,1));
+    y1(1,i)=f*X1;
+    y2(1,i)=f*X2;
+end
+
+%On dessine les deux graphes
+plot(x,y1,'g-*')
+hold on
+plot(x,y2,'r-*')
+end
