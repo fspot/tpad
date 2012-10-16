@@ -1,6 +1,6 @@
 function [ res, keeped ] = deldominated( mat )
-%DELDOMINATED Summary of this function goes here
-%   Detailed explanation goes here
+%permet d'éliminer les solutions dominées
+
     [h,w] = size(mat);
     res = [];    % lignes non dominees (matrice)
     keeped = []; % liste des indices des lignes non dominees.

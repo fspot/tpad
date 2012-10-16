@@ -1,6 +1,6 @@
 function R = seuil( C,D,s,v )
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%renvoie la liste des solutions respectant les seuils de concordance (s) / discordance 
+
     [nbsol,trash] = size(C);
 
     R = ones(1,nbsol);

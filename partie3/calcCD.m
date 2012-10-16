@@ -1,6 +1,5 @@
 function [ C,D ] = calcCD( MatJugements )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%calcule les matrices de concordance / discordance pour Electre 1
     
     [lignes,col] = size(MatJugements);
     C = zeros(lignes);
